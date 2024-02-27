@@ -14,6 +14,10 @@ spec:
       labels:
         app: tgis
     spec:
+      tolerations:
+        - key: nvidia-gpu-only
+          operator: Exists
+          effect: NoSchedule
       containers:
       - name: tgis
         image: ghcr.io/huggingface/text-generation-inference:latest
