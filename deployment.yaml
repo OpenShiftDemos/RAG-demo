@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tgis-deployment
+  labels:
+    app: tgis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tgis
+  template:
+    metadata:
+      labels:
+        app: tgis
+    spec:
+      containers:
+      - name: tgis
+        image: ghcr.io/huggingface/text-generation-inference:latest
+        imagePullPolicy: Always
+        args: ["--model-id", "mistralai/Mistral-7B-v0.1", "--quantize", "bitsandbytes",  "--num-shard", "1", "--max-total-tokens", "2048", "--max-input-length", "1600", "--trust-remote-code", "--port", "8048"]
+        env:
+        - name: LOG_LEVEL
+          value: "debug"
+        ports:
+          - containerPort: 8048
+            name: runtime-rest
+            protocol: TCP
+        resources:
+          limits:
+            nvidia.com/gpu: "1"
+          requests:
+            cpu: 8
+            memory: "20Gi"
+            nvidia.com/gpu: "1"
+        volumeMounts:
+        - mountPath: /data
+          name: data
+        - mountPath: /.cache
+          name: cache
+        - mountPath: /.triton
+          name: triton
+      volumes:
+      - name: data
+        emptyDir:
+          sizeLimit: 40Gi
+      - name: cache
+        emptyDir:
+          sizeLimit: 40Gi
+      - name: triton
+        emptyDir:
+          sizeLimit: 40Gi
