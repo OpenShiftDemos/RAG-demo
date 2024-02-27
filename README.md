@@ -36,9 +36,9 @@ oc create -f redis-loadbalancer.yaml
 ```
 After you create the load balancer, add the following labels: 
 ```
-	app.kubernetes.io/instance=redis-stack
-	app.kubernetes.io/component=redis-stack
-	app=redis-stack
+app.kubernetes.io/instance=redis-stack
+app.kubernetes.io/component=redis-stack
+app=redis-stack
 ```
 And add this to pod selector: 
 ```
