@@ -47,5 +47,9 @@ deployment=redis-stack
 
 ## Start RHOAI Environment with Jupyter
 
-First you want to create a new Data Science Project and label it llama-project. Then you want to create a workbench, where you'll set the image size to large and select your GPU. Once your workbench is finished deploying, launch it and create a new notebook file. Next you'll walk through the llamaindex [Redis Vector Store example](https://docs.llamaindex.ai/en/stable/examples/vector_stores/RedisIndexDemo.html). Go through the notebook and when you get to creating your database in your redis stack, get the external load balancer address from Openshift for the stack and replace the URL in the notebook to look like this: redis://<LOAD_BALANCER_ADDRESS>:6379. It is important to use port 6379 as we exposed that port specifically when we created the load balancer.
+First you want to create a new Data Science Project and label it llama-project. Then you want to create a workbench, where you'll set the image size to large and select your GPU. Once your workbench is finished deploying, launch it and create a new notebook file. </br>
+</br>
+Next you'll walk through the llamaindex [Redis Vector Store example](https://docs.llamaindex.ai/en/stable/examples/vector_stores/RedisIndexDemo.html). On that page, click on *Open in Colab* in the upper lefthand corner. Once in Colab, go to file and download the RedisIndexDemo.ipynb file. Go back to the jupyter environment and upload the file so you can walk through the demo. </br>
+</br>
+Go through the notebook and when you get to creating your database in your redis stack, get the external load balancer address from Openshift for the stack and replace the URL in the notebook to look like this: redis://<LOAD_BALANCER_ADDRESS>:6379. It is important to use port 6379 as we exposed that port specifically when we created the load balancer. /n
 
