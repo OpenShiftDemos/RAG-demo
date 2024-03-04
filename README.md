@@ -2,7 +2,7 @@
 
 These are the steps to running the [Redis Vector Store tutorial](https://docs.llamaindex.ai/en/stable/examples/vector_stores/RedisIndexDemo.html) from LlamaIndex.
 
-In order to complete this tutorial you will need: OpenShift, access to at least 1 GPU, and Red Hat OpenShift AI. The Huggingface TGI server alone requires 8 cpu cores and 20Gi of memory, so ensure your environment has enough resources before you begin.
+In order to complete this tutorial you will need: OpenShift, access to at least 1 GPU, and Red Hat OpenShift AI. 
 
 ## Setting up the environment
 
@@ -11,45 +11,23 @@ You will need to have your GPU enabled at this point. Download this github local
 oc new-project llama-example
 ```
 
-## Deploy Huggingface TGI Server
-
-To deploy the server, you will need to go to the huggingface-tgi directory. Once you are in the directory, you're going to create the initial deployment first, then a service.
-``` 
-oc create -f deployment.yaml
-```
-Now we'll deploy the service and expose it for future access with the following commands:
-```
-oc create -f service.yaml
-oc expose service tgis-service
-```
-
 ## Deploy Redis Stack
 
 Now we want to deploy redis stack to use as our database. We are going to deploy this image to create our redis-stack with this command:
 ```
 oc new-app redis/redis-stack
 ```
-Next we have to add a load balancer to make our redis stack externally accessible. Go to the redis-stack directory and then run this:
-	Use yaml from redis-loadbalancer.yaml
+Next we want to add a volume to the redis stack. To do this, we are going to make some changes to our redis stack deployment with the update.yaml file in the *redis-stack* directory. Once you are in the *redis-stack* directory, run the fllowing command.
 ```
-oc create -f redis-loadbalancer.yaml
+oc apply -f update.yaml
 ```
-After you create the load balancer, add the following labels: 
-```
-app.kubernetes.io/instance=redis-stack
-app.kubernetes.io/component=redis-stack
-app=redis-stack
-```
-And add this to pod selector: 
-```
-deployment=redis-stack
-```
+Now that we've set up the volumes, we're ready to head over to RHOAI. 
 
 ## Start RHOAI Environment with Jupyter
 
-First you want to create a new Data Science Project and label it llama-project. Then you want to create a workbench, where you'll set the image size to large and select your GPU. Once your workbench is finished deploying, launch it and create a new notebook file. </br>
+Once you are at the RHOAI dashboard, head over to the Data Science Projects tab. You want to create a new Data Science Project and label it llama-project. Then you want to create a workbench, where you'll select the PyTorch image, set the image size to large, and select your GPU. Once your workbench is finished deploying, launch it and create a new notebook file. </br>
 </br>
-Next you'll walk through the llamaindex [Redis Vector Store example](https://docs.llamaindex.ai/en/stable/examples/vector_stores/RedisIndexDemo.html). On that page, click on *Open in Colab* in the upper lefthand corner. Once in Colab, go to file and download the RedisIndexDemo.ipynb file. Go back to the jupyter environment and upload the file so you can walk through the demo. </br>
+Next you'll import this repository into our RHOAI environment. On the left hand side, select the git icon and select *Download a Repository*. Paste the link from this repo to import it. </br>
 </br>
-Go through the notebook and when you get to creating your database in your redis stack, get the external load balancer address from Openshift for the stack and replace the URL in the notebook to look like this: redis://<LOAD_BALANCER_ADDRESS>:6379. It is important to use port 6379 as we exposed that port specifically when we created the load balancer. /n
+Its time for the tutorial! Walk through the RedisIndexDemo.ipynb to see how we store vectors in a redis stack with llamaindex.
 
