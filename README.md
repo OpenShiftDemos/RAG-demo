@@ -25,7 +25,7 @@ Now that we've set up the volumes, we're ready to head over to RHOAI.
 
 ## Start RHOAI Environment with Jupyter
 
-Once you are at the RHOAI dashboard, head over to the Data Science Projects tab. You want to create a new Data Science Project and label it llama-project. Then you want to create a workbench, where you'll select the PyTorch image, set the image size to large, and select your GPU. Once your workbench is finished deploying, launch it and create a new notebook file. </br>
+Once you are at the RHOAI dashboard, head over to the Data Science Projects tab. You want to create a new Data Science Project and label it llama-project. Then you want to create a workbench, where you'll select the PyTorch image, set the image size to large, and select your GPU. Once your workbench is finished deploying, and launch the environment. </br>
 </br>
 Next you'll import this repository into our RHOAI environment. On the left hand side, select the git icon and select *Download a Repository*. Paste the link from this repo to import it. </br>
 </br>
