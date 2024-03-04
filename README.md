@@ -2,7 +2,7 @@
 
 These are the steps to running the [Redis Vector Store tutorial](https://docs.llamaindex.ai/en/stable/examples/vector_stores/RedisIndexDemo.html) from LlamaIndex.
 
-In order to complete this tutorial you will need: OpenShift, access to at least 1 GPU, and Red Hat OpenShift AI. 
+In order to complete this tutorial you will need: OpenShift 4.14, access to at least 1 GPU, and Red Hat OpenShift AI. 
 
 ## Setting up the environment
 
@@ -13,7 +13,7 @@ oc new-project llama-example
 
 ## Deploy Redis Stack
 
-Now we want to deploy redis stack to use as our database. We are going to deploy this image to create our redis-stack with this command:
+Now we want to deploy redis stack to use as our database. For this example, we'll pull the latest version of redis stack. We are going to deploy this image to create our redis-stack with this command:
 ```
 oc new-app redis/redis-stack
 ```
